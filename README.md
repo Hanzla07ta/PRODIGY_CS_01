@@ -1,14 +1,55 @@
 # PRODIGY_CS_01
-Certainly! Here's a brief description of how Caesar cipher project will work:
+def encrypt(text, shift):
+    encrypted_text = ""
+    for char in text:
+        if char.isalpha():
+            shifted = ord(char) + shift
+            if char.islower():
+                if shifted > ord('z'):
+                    shifted -= 26
+            elif char.isupper():
+                if shifted > ord('Z'):
+                    shifted -= 26
+            encrypted_text += chr(shifted)
+        else:
+            encrypted_text += char
+    return encrypted_text
 
-1. **Encryption**: The user inputs a message and a shift value. Each letter in the message is shifted forward in the alphabet by the specified amount, wrapping around if necessary. For example, with a shift of 3, 'A' becomes 'D', 'B' becomes 'E', and so on.
+def decrypt(text, shift):
+    decrypted_text = ""
+    for char in text:
+        if char.isalpha():
+            shifted = ord(char) - shift
+            if char.islower():
+                if shifted < ord('a'):
+                    shifted += 26
+            elif char.isupper():
+                if shifted < ord('A'):
+                    shifted += 26
+            decrypted_text += chr(shifted)
+        else:
+            decrypted_text += char
+    return decrypted_text
 
-2. **Decryption**: To decrypt the message, the same shift value is used, but in reverse. Each letter in the encrypted message is shifted backward in the alphabet by the specified amount to reveal the original message.
+def main():
+    while True:
+        choice = input("Enter 'e' for encryption, 'd' for decryption or 's' for stop execution: ").lower()
+        if choice == 'e':
+            message = input("Enter the message to encrypt: ")
+            shift = int(input("Enter the shift value: "))
+            encrypted_message = encrypt(message, shift)
+            print("Encrypted message:", encrypted_message)
+        elif choice == 'd':
+            message = input("Enter the message to decrypt: ")
+            shift = int(input("Enter the shift value: "))
+            decrypted_message = decrypt(message, shift)
+            print("Decrypted message:", decrypted_message)
+        elif choice == 's':
+            message = input("Process finished. ")
+            break
+        else:
+            print("Invalid choice")
 
-3. **Input/Output**: The program will prompt the user to input their message and the shift value. It will then display the encrypted message and the decrypted message, providing a clear demonstration of the Caesar cipher's functionality.
+if __name__ == "__main__":
+    main()
 
-4. **Error Handling**: The program will handle errors gracefully, such as invalid inputs or edge cases like non-alphabetic characters in the message.
-
-5. **User-Friendly Interface**: Keep the user interface simple and intuitive, guiding the user through the encryption and decryption process with clear instructions and prompts.
-
-With these components in place,  the Caesar cipher project will effectively encrypt and decrypt text based on the user's input and the specified shift value, demonstrating the workings of this classic encryption technique.
